@@ -219,6 +219,9 @@ struct dsi_panel {
 	struct drm_panel_esd_config esd_config;
 
 	struct dsi_parser_utils utils;
+	
+	bool is_tddi_flag;
+	bool panel_dead_flag;
 
 	bool lp11_init;
 	bool ulps_feature_enabled;
