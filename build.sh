@@ -4,7 +4,7 @@
 #
 
 # Delet out folder 
-#rm -rf out/
+rm -rf out/
 
 # Kernel_Defconfig
 KERNEL_DEFCONFIG=vendor/sweet_defconfig
@@ -21,6 +21,14 @@ cyan='\033[0;36m'
 yellow='\033[0;33m'
 red='\033[0;31m'
 nocol='\033[0m'
+
+# WeebX Clang 20.0.0git Download 
+if [ ! -d "$PWD/clang" ]; then
+	wget "$(curl -s https://raw.githubusercontent.com/XSans0/WeebX-Clang/main/main/link.txt)" -O "zyc-clang.tar.gz"
+	mkdir clang && tar -xvf weebx-clang.tar.gz -C clang && rm -rf weebx-clang.tar.gz
+else
+	echo "Local clang dir found, will not download clang and using that instead"
+fi
 
 # Speed up build proces
 MAKE="./makeparallel"
@@ -43,15 +51,20 @@ echo "1. MIUI"
 echo "2. AOSP"
 read -p "Enter the number of your choice: " build_choice
 
-# Modify dtsi file if MIUI build is selected
+# Modify dtsi file if MIUI & AOSP build is selected
 if [ "$build_choice" = "1" ]; then
     sed -i 's/qcom,mdss-pan-physical-width-dimension = <69>;$/qcom,mdss-pan-physical-width-dimension = <695>;/' arch/arm64/boot/dts/qcom/dsi-panel-k6-38-0c-0a-fhd-dsc-video.dtsi
     sed -i 's/qcom,mdss-pan-physical-height-dimension = <154>;$/qcom,mdss-pan-physical-height-dimension = <1546>;/' arch/arm64/boot/dts/qcom/dsi-panel-k6-38-0c-0a-fhd-dsc-video.dtsi
-    echo "MIUI build selected Display Modification For MIUI ROM"
+
+# Dimension selected
+echo -e "$blue************************************************"
+echo -e  "   MIUI build selected For MIUI ROM            "
+echo -e "************************************************$nocol"
     zip_name="MIUI"
 elif [ "$build_choice" = "2" ]; then
-    echo "AOSP build selected Display Modification For AOSP ROM"
-    zip_name="AOSP"
+echo -e "$blue************************************************"
+echo -e  "   AOSP build selected For AOSP ROM         "
+echo -e "************************************************$nocol"
 else
     echo "Invalid choice. Exiting..."
     exit 1
