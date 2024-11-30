@@ -16,15 +16,22 @@ And public attribution of xiaomi platforms(like F3 and so and)
 		enable-active-high;
 		regulator-boot-on;
 		gpio = <&tlmm 90 0>;
-	};*/
+	};
+		fingerprint_fortsense {
+		compatible = "fs,fingerprint";
+		fs,gpio-reset = <&tlmm 58 0x0>;
+		fs,gpio-irq = <&tlmm 57 0x0>;
+                fs_vdd-supply = <&L7C>;
+		status = "ok";
+	};
 
 	fingerprint_fpc {
 		status = "ok";
 		compatible = "fpc,fpc1020";
 		interrupt-parent = <&tlmm>;
 		interrupts = <57 0x0>;
-		fpc,gpio_rst = <&tlmm 58 0x0>;
-		fpc,gpio_irq = <&tlmm 57 0x0>;
+		fpc,gpio_rst    = <&tlmm 58 0x0>;
+		fpc,gpio_irq    = <&tlmm 57 0x0>;
 		fp_vdd_vreg-supply = <&L7C>;
 		pinctrl-names = "fpc1020_reset_reset",
 			"fpc1020_reset_active",
@@ -34,7 +41,7 @@ And public attribution of xiaomi platforms(like F3 and so and)
 		pinctrl-1 = <&msm_gpio_58_output_high>;
 		pinctrl-2 = <&msm_gpio_57>;
 	};
-
+	
 	mtp_batterydata: qcom,battery-data {
 		qcom,batt-id-range-pct = <15>;
 		#include "batterydata-K6-sunwoda-5020mah.dtsi"
@@ -693,7 +700,7 @@ And public attribution of xiaomi platforms(like F3 and so and)
 &dsi_k6_38_0c_0a_fhd_dsc_video {
 	qcom,panel-supply-entries = <&dsi_panel_pwr_supply_labibb_amoled>;
 	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_dcs";
-	qcom,mdss-dsi-bl-min-level = <8>;
+	qcom,mdss-dsi-bl-min-level = <20>;
 	qcom,mdss-dsi-bl-max-level = <2047>;
 	qcom,mdss-brightness-max-level = <2047>;
 	qcom,mdss-dsi-mode-sel-gpio-state = "single_port";
