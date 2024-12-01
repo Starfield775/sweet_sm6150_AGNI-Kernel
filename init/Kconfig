@@ -715,9 +715,17 @@ config PELT_UTIL_HALFLIFE_16
 	  Use 16ms as PELT half-life value. This will increase the ramp-up and
 	  decay of utlization and load twice as fast as for the default
 	  configuration using 32ms.
+	  
+config PELT_UTIL_HALFLIFE_12
+	bool "12 ms, very fast"
+	help
+	  A 12ms PELT half-life is suggested for mobile/interactive workloads
+	  where tasks usually run with a 60/90Hz activation cadence.
+
+	  If not sure, use the default of 32 ms
 
 config PELT_UTIL_HALFLIFE_8
-	bool "8 ms, very fast"
+	bool "8 ms, more fast"
 	help
 	  Use 8ms as PELT half-life value. This will increase the ramp-up and
 	  decay of utlization and load four time as fast as for the default
@@ -1101,6 +1109,25 @@ config NET_NS
 	  of the network stack.
 
 endif # NAMESPACES
+
+config SCHED_BORE
+	bool "Burst-Oriented Response Enhancer"
+	default y
+	help
+	  In Desktop and Mobile computing, one might prefer interactive
+	  tasks to keep responsive no matter what they run in the background.
+
+	  Enabling this kernel feature modifies the scheduler to discriminate
+	  tasks by their burst time (runtime since it last went sleeping or
+	  yielding state) and prioritize those that run less bursty.
+	  Such tasks usually include window compositor, widgets backend,
+	  terminal emulator, video playback, games and so on.
+	  With a little impact to scheduling fairness, it may improve
+	  responsiveness especially under heavy background workload.
+
+	  You can turn it off by setting the sysctl kernel.sched_bore = 0.
+
+	  If unsure, say Y here.
 
 config SCHED_AUTOGROUP
 	bool "Automatic process group scheduling"
