@@ -22,9 +22,9 @@ yellow='\033[0;33m'
 red='\033[0;31m'
 nocol='\033[0m'
 
-# WeebX Clang 20.0.0git Download 
+# WeebX clang 20.0.0git Downloads
 if [ ! -d "$PWD/clang" ]; then
-	wget "$(curl -s https://raw.githubusercontent.com/XSans0/WeebX-Clang/main/main/link.txt)" -O "zyc-clang.tar.gz"
+	wget "$(curl -s https://raw.githubusercontent.com/XSans0/WeebX-Clang/main/main/link.txt)" -O "weebx-clang.tar.gz"
 	mkdir clang && tar -xvf weebx-clang.tar.gz -C clang && rm -rf weebx-clang.tar.gz
 else
 	echo "Local clang dir found, will not download clang and using that instead"
@@ -36,8 +36,8 @@ MAKE="./makeparallel"
 # Set up environment variables for the build
 export PATH="$PWD/clang/bin:$PATH"
 export ARCH=arm64
-export KBUILD_BUILD_USER=Builder
-export KBUILD_BUILD_HOST=Rem082
+export KBUILD_BUILD_USER=Builder~Rem
+export KBUILD_BUILD_HOST=Not~Gaming~Kernel~XD
 export KBUILD_COMPILER_STRING="$PWD/clang"
 
 clear
@@ -65,6 +65,7 @@ elif [ "$build_choice" = "2" ]; then
 echo -e "$blue************************************************"
 echo -e  "   AOSP build selected For AOSP ROM         "
 echo -e "************************************************$nocol"
+    zip_name="AOSP"
 else
     echo "Invalid choice. Exiting..."
     exit 1
