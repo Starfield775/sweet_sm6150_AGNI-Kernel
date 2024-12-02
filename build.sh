@@ -22,23 +22,15 @@ yellow='\033[0;33m'
 red='\033[0;31m'
 nocol='\033[0m'
 
-# WeebX clang 20.0.0git Downloads
-if [ ! -d "$PWD/clang" ]; then
-	wget "$(curl -s https://raw.githubusercontent.com/XSans0/WeebX-Clang/main/main/link.txt)" -O "weebx-clang.tar.gz"
-	mkdir clang && tar -xvf weebx-clang.tar.gz -C clang && rm -rf weebx-clang.tar.gz
-else
-	echo "Local clang dir found, will not download clang and using that instead"
-fi
-
 # Speed up build proces
 MAKE="./makeparallel"
 
 # Set up environment variables for the build
 export PATH="$PWD/clang/bin:$PATH"
 export ARCH=arm64
-export KBUILD_BUILD_USER=Builder~Rem
+export KBUILD_BUILD_USER=Snapdragon732G
 export KBUILD_BUILD_HOST=Not~Gaming~Kernel~XD
-export KBUILD_COMPILER_STRING="$PWD/clang"
+export KBUILD_COMPILER_STRING="$($PWD/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
 
 clear
 
@@ -105,7 +97,7 @@ git clone  --depth=1 https://github.com/basamaryan/AnyKernel3 -b master AnyKerne
 fi
 
 # Modify anykernel.sh to replace device names
-sed -i "s/kernel\.string=.*/kernel.string=AGNI-Kernel By @DenomSly/" AnyKernel3/anykernel.sh
+sed -i "s/kernel\.string=.*/kernel.string=AGNI~Kernel~R1 By @DenomSly/" AnyKernel3/anykernel.sh
 sed -i "s/device\.name1=.*/device.name1=sweet/" AnyKernel3/anykernel.sh
 sed -i "s/device\.name2=.*/device.name2=sweetin/" AnyKernel3/anykernel.sh
 sed -i "s/supported\.versions=.*/supported.versions=11-14/" AnyKernel3/anykernel.sh
